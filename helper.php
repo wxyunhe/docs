@@ -13,7 +13,7 @@ include('PerliteParsedown.php');
 $avFiles = array();
 
 // $rootDir = getenv('NOTES_PATH');
-$rootDir = '../docs';
+$rootDir = './docs';
 
 $hideFolders = getenv('HIDE_FOLDERS');
 $about = '.about';
