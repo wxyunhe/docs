@@ -133,7 +133,7 @@ function doSearch($dir, $searchfor)
 	$content = $Parsedown->text($result);
 
 	return
-		'<div class="searchTitle" style="display: none">Search results for: ' . $cleanSearch . '</div>
+		'<div class="searchTitle" style="display: none">与 ' . $cleanSearch . ' 相关的搜索结果</div>
 	<div class="lastSearch" style="display: none"><a href="#">open recent search</a></div>
 	<br><br>' . $content;
 }

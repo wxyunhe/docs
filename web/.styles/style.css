@@ -7,15 +7,8 @@
 
 /* --------------- */
 /* Global */
-
-@font-face {
-  font-family: 'NerdFonts';
-  src: url('fonts/3270-Medium Nerd Font Complete.ttf');
-}
-
 * {
   box-sizing: border-box;
-  font-family: "NerdFonts", sans-serif;
   scrollbar-color: #333333db;
   scrollbar-width: thin;
 }
@@ -223,6 +216,7 @@ img {
 }
 
 .nav-right {
+  display: none;
   width: 500px;
 }
 

@@ -18,6 +18,7 @@
 
 <head>
     <link id="bootswatch-theme" rel="stylesheet" href=".styles/slate.css">
+    <link id="bootswatch-theme" rel="stylesheet" href=".styles/Pink-Topaz.css">
     <link id="highlight-js" rel="stylesheet" href=".styles/a11y-dark.min.css">
     <link rel="stylesheet" href=".styles/vis.min.css" />
     <link rel="stylesheet" href=".styles/style.css">
@@ -44,8 +45,8 @@
                     <a href="."><img src="logo.svg" height="35" class="me-3" alt="Perlite Logo"></a>
 
                     <ul class="navbar-nav col-12 col-lg-auto me-lg-auto mb-md-0">
-                        <li class="nav-item px-2"><a class="nav-link" href="https://secure77.de" target="_blank"
-                                rel="noopener noreferrer">Blog</a></li>
+                        <!-- <li class="nav-item px-2"><a class="nav-link" href="https://secure77.de" target="_blank"
+                                rel="noopener noreferrer">Blog</a></li> -->
                         <li class="nav-item px-2"><a class="nav-link" id="about" href="#">About</a></li>
                     </ul>
                     <div class="no-mobile me-lg-5">
@@ -97,7 +98,7 @@ $jsonGraphData = getfullGraph($rootDir);
                 <h4 class="headline pb-3" id="vault-name"><?php echo $base ?> </h4>
                     <form id="f1" class="search-my col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                         <input type="search" name="t1" class="form-control form-control-sm perlite-form"
-                            placeholder="Search..." aria-label="Search">
+                            placeholder="输入关键词搜索内容" aria-label="Search">
                     </form>
                     <div class="me-lg-2 blockquote-footer searchFooter"><a href="#" id="expandGraph">open Graph</a>
                     </div>
@@ -110,6 +111,7 @@ $jsonGraphData = getfullGraph($rootDir);
         </aside>
         <div class="divider no-mobile"></div>
         <div class="markdown container-lg container-mobile" id="mdContent"></div>
+        <div class="divider no-mobile"></div>
         <div class="nav-right no-mobile">
             <div class="no-mobile me-lg-5">
 
