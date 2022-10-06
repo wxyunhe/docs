@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Web安全/Web安全.md",
+            "file": "Vue.md",
             "mode": "source",
             "source": true
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Web安全/Web安全.md",
+                "file": "Vue.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Web安全/Web安全.md",
+                "file": "Vue.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Web安全/Web安全.md"
+                "file": "Vue.md"
               }
             }
           }
@@ -130,15 +130,15 @@
   },
   "active": "8fde67ff2ac2a411",
   "lastOpenFiles": [
-    "Web安全/OWASP_Top_10_2017_中文版v1.3.pdf",
-    "Web安全/OWASPAPITop102019.pdf",
-    "Web安全/OWASP TOP10.md",
-    "Web安全/Web安全.md",
-    "JavaScript/1.数据类型.md",
-    "JavaScript/变更检测.md",
     "README.md",
+    "Vue.md",
+    "传输协议整理.md",
+    "JavaScript/变更检测.md",
+    "CSS.md",
+    "JavaScript/1.数据类型.md",
     "JavaScript/Class.md",
-    "JavaScript/index.html.md",
-    "index.md.md"
+    "Web安全/Web安全.md",
+    "Web安全/OWASP_Top_10_2017_中文版v1.3.pdf",
+    "Web安全/OWASPAPITop102019.pdf"
   ]
 }

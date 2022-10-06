@@ -456,10 +456,6 @@ $(document).ready(function () {
     }
   });
 
-  // check for graph and hide open grap link if none exists
-  if (!document.getElementById("allGraphNodes") || document.getElementById("allGraphNodes").innerHTML == '[]') {
-    document.getElementById('expandGraph').classList.add('hide');
-  }
 
 
   // direct links
@@ -517,12 +513,6 @@ $(document).ready(function () {
     return false;
   };
 
-
-  // show graph modal
-  document.getElementById("expandGraph").onclick = function () {
-    $("#graphModal").modal("show");
-  };
-
   // render graph and check current file to highlight node
   $('#graphModal').on('shown.bs.modal', function () {
 
@@ -550,7 +540,7 @@ $(document).ready(function () {
       url: "content.php?about", success: function (result) {
         $("div.aboutModalBody").html(result);
         var title = $("div.searchTitle").first().html();
-        $("h5.aboutModalTitle").html("Perlite");
+        $("h5.aboutModalTitle").html("关于本网站");
         hljs.highlightAll();
         $("#aboutModal").modal("show");
       }

@@ -15,7 +15,6 @@
 
 
 blockquote {
-  background: #212325;
   border-left: 6px solid #3E4446;
   padding: 0.5rem;
   margin-inline-start: 30px;
@@ -215,11 +214,6 @@ img {
   align-content: baseline;
 }
 
-.nav-right {
-  display: none;
-  width: 500px;
-}
-
 .list-unstyled {
   list-style: none;
   padding-left: 10px;
@@ -274,16 +268,12 @@ img {
 
 .perlite-form:hover, .perlite-form:focus {
 
-  color: var(--bs-white);
-  background-color: var(--bs-gray-800);
-  border-color: var(--bs-info);
+
 }
 
 .perlite-form {
 
-  color: var(--bs-white);
-  background-color: var(--bs-gray-800);
-  border: 1px solid var(--bs-gray-700);
+
 }
 
 

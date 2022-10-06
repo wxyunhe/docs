@@ -59,7 +59,7 @@
 5. 伪类和伪元素
 6. 浮动 float
 7. 如何清除 float
-8. 描述z—index和叠加上下文是如何形成的
+8. 描述z-index和叠加上下文是如何形成的
 9. BFC
 10. IFC
 11. flex布局
@@ -84,7 +84,7 @@
 
 ## HTML
 1. script标签中的 defer 和 async 属性
-2. 为什么通常推荐将 CSS <link> 放置在 <head></head> 之间，而将JS <script> 放置在 </body> 之前
+2. 为什么通常推荐将 CSS `<link>` 放置在 `<head></head>` 之间，而将JS `<script>` 放置在 `</body>` 之前
 3. 常见的meta元素
 4. HTML5 新标签
 5. DOCTYPE（文档类型）的作用是什么
@@ -145,17 +145,17 @@
 28. componentDidCatch
 29. SSR
 30. 为什么需要用redux
-31. react-redux是干什么的
+31. react-redux 是干什么的
 32. react-redux connect 实现原理
 33. redux 工作流程及原理
 34. 有没有用过其它状态管理器？及其原理
 35. react-router 路由实现原理
-36. react—router 有几种路由类型？每种路由类型实现原理
+36. react-router 有几种路由类型？每种路由类型实现原理
 37. 项目本地开发完成后部署到服务器后报404是什么原因呢？
 
 ## Vue
 1. Vue3 新特性
-2. Vue3与Vue2 区别
+2. Vue3 与 Vue2 区别
 3. 双向绑定原理
 4. Proxy与Object. defineProperty对比
 5. Composition API
