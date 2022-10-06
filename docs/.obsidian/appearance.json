@@ -1,6 +1,7 @@
 {
-  "cssTheme": "Pink Topaz",
+  "cssTheme": "Blue Topaz",
   "interfaceFontFamily": "Microsoft YaHei UI",
   "textFontFamily": "Microsoft YaHei",
-  "monospaceFontFamily": "Cascadia Mono"
+  "monospaceFontFamily": "Cascadia Mono",
+  "theme": "moonstone"
 }
