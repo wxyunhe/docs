@@ -126,10 +126,12 @@ function getContent(str, home = false) {
 
 // vis js stuff
 function renderGraph(modal, path = "", filter_emptyNodes = false) {
+  if(!document.getElementById('allGraphNodes') || !document.getElementById('allGraphEdges')) {
+    return;
+  }
 
-
-  var visNodes = document.getElementById('allGraphNodes').innerHTML;
-  var visEdges = document.getElementById('allGraphEdges').innerHTML;
+  var visNodes = document.getElementById('allGraphNodes')?.innerHTML;
+  var visEdges = document.getElementById('allGraphEdges')?.innerHTML;
 
   var jsonNodes = JSON.parse(visNodes);
   var jsonEdges = JSON.parse(visEdges);
