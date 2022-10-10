@@ -13,7 +13,7 @@ include('PerliteParsedown.php');
 $avFiles = array();
 
 // $rootDir = getenv('NOTES_PATH');
-$rootDir = './docs';
+$rootDir = 'docs';
 
 $hideFolders = getenv('HIDE_FOLDERS');
 $about = '.about';
@@ -133,7 +133,7 @@ function doSearch($dir, $searchfor)
 	$content = $Parsedown->text($result);
 
 	return
-		'<div class="searchTitle" style="display: none">与 ' . $cleanSearch . ' 相关的搜索结果</div>
+		'<div class="searchTitle" style="display: none">Search results for: ' . $cleanSearch . '</div>
 	<div class="lastSearch" style="display: none"><a href="#">open recent search</a></div>
 	<br><br>' . $content;
 }
@@ -261,6 +261,99 @@ function isValidFolder($file)
 	}
 
 	return false;
+}
+
+
+function getfullGraph($rootDir)
+{
+
+
+	$jsonMetadaFile = $rootDir . '/metadata.json';
+
+	if (!is_file($jsonMetadaFile)) {
+		return;
+	}
+
+	$jsonData = file_get_contents($jsonMetadaFile);
+
+	if ($jsonData === false) {
+		return;
+	}
+
+	$json_obj = json_decode($jsonData, true);
+	if ($json_obj === null) {
+		return;
+	}
+
+	$graphNodes = array();
+	$graphEdges = array();
+
+	$currentNode = -1;
+
+
+	$nodeID = 0;
+	// create nodes
+	foreach ($json_obj as $id => $node) {
+
+		$nodePath = removeExtension($node['relativePath']);
+
+		// check if node from the  json file really exists
+		if (checkArray($nodePath)) {
+			// add node to the graph
+			array_push($graphNodes, ['id' => $nodeID, 'label' => $node['fileName'], 'title' => $nodePath]);
+			$nodeID += 1;
+		}
+	}
+	$targetId = -1;
+	$sourceId = -1;
+
+	foreach ($json_obj as $index => $node) {
+
+		$nodePath = removeExtension($node['relativePath']);
+
+		// check if node from the json file really exists
+		if (checkArray($nodePath)) {
+
+			// create the linking between the nodes
+			if (isset($node['links'])) {
+				foreach ($node['links'] as $i => $links) {
+
+					$source = "";
+					$target = "";
+					if (isset($node['relativePath'])) {
+						$source = removeExtension($node['relativePath']);
+					}
+
+					if (isset($links['relativePath'])) {
+						$target = removeExtension($links['relativePath']);
+					}
+
+					if ($source !== '' && $target !== '') {
+						foreach ($graphNodes as $index => $element) {
+							$elementTitle = $element['title'];
+
+							if (strcmp($elementTitle, $target) == 0) {
+								$targetId = $element['id'];
+							}
+							if (strcmp($elementTitle, $source) == 0) {
+								$sourceId = $element['id'];
+							}
+							if ($targetId !== -1 && $sourceId !== -1) {
+								array_push($graphEdges, ['from' => $sourceId, 'to' => $targetId]);
+								$targetId = -1;
+								$sourceId = -1;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	$myGraphNodes = json_encode($graphNodes, JSON_UNESCAPED_SLASHES);
+	$myGraphEdges = json_encode($graphEdges, JSON_UNESCAPED_SLASHES);
+
+	return '<div id="allGraphNodes" class="hide">' . $myGraphNodes . '</div><div id="allGraphEdges" class="hide">' . $myGraphEdges . '</div>';
 }
 
 function removeExtension($path)

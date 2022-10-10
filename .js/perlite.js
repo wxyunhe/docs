@@ -10,8 +10,6 @@
 
 // define home file
 const homeFile = "README";
-// define cookie name required for external Obsidian link button
-const editCookieName = "vaultName";
 
 
 // get markdown content
@@ -41,23 +39,11 @@ function getContent(str, home = false) {
         // set content + fullscreen modal
         $("#mdContent").html(result);
         $("div.mdModalBody").html(result);
-
         var title = $("div.mdTitleHide").first().text();
         if (title) {
-          hrefTitle = '<a href=?link=' + encodeURIComponent(title) + '>' + title + '</a>'
-          $("li.mdTitle").html(hrefTitle);
-          $("h5.mdModalTitle").html(hrefTitle);
-
-          showEditButton = getCookie(editCookieName);
-
-
-          if(showEditButton) {
-            var vault = showEditButton;
-
-            $("#edit-btn")
-              .attr("href", "obsidian://open?vault=" + vault + "&file=" + encodeURIComponent(title))
-              .removeClass("visually-hidden");
-          }
+          title = '<a href=?link=' + encodeURIComponent(title) + '>' + title + '</a>'
+          $("li.mdTitle").html(title);
+          $("h5.mdModalTitle").html(title);
         }
 
         // highlight code     
@@ -115,14 +101,7 @@ function getContent(str, home = false) {
 
         // mark external links
         function link_is_external(link_element) {
-          if (link_element.host == '') {
-            return false;
-          }
-
-          if (link_element.host !== window.location.host) {
-            return true;
-          }
-          return false;
+          return (link_element.host !== window.location.host);
         }
 
         var links = document.getElementsByTagName('a');
@@ -145,239 +124,236 @@ function getContent(str, home = false) {
   }
 };
 
-
 // vis js stuff
-function renderGraph() {}
-
-// function renderGraph(modal, path = "", filter_emptyNodes = false) {
+function renderGraph(modal, path = "", filter_emptyNodes = false) {
 
 
-//   var visNodes = document.getElementById('allGraphNodes').innerHTML;
-//   var visEdges = document.getElementById('allGraphEdges').innerHTML;
+  var visNodes = document.getElementById('allGraphNodes').innerHTML;
+  var visEdges = document.getElementById('allGraphEdges').innerHTML;
 
-//   var jsonNodes = JSON.parse(visNodes);
-//   var jsonEdges = JSON.parse(visEdges);
+  var jsonNodes = JSON.parse(visNodes);
+  var jsonEdges = JSON.parse(visEdges);
 
-//   var currId = 0;
-//   path = decodeURIComponent(path);
-//   if (path == 'home') {
-//     path = '/' + homeFile;
-//   }
+  var currId = 0;
+  path = decodeURIComponent(path);
+  if (path == 'home') {
+    path = '/' + homeFile;
+  }
 
-//   // get current node
-//   for (const x in jsonNodes) {
-//     if (path == ('/' + jsonNodes[x]['title'])) {
-//       currId = jsonNodes[x]['id'];
-//       break;
-//     }
-//     else if (modal == false) {
-//       currId = -1;
-//     }
-//   }
+  // get current node
+  for (const x in jsonNodes) {
+    if (path == ('/' + jsonNodes[x]['title'])) {
+      currId = jsonNodes[x]['id'];
+      break;
+    }
+    else if (modal == false) {
+      currId = -1;
+    }
+  }
 
-//   // cancel graph display if no node was found
-//   if (currId == -1) {
-//     return;
-//   }
-
-
-//   //container = document.getElementById('mdContent');
-
-//   var options = {
-//     interaction: {
-//       hover: true,
-//     },
-//     // configure: {
-//     //   enabled: true,
-//     //   filter: 'nodes,edges',
-//     //   container: container,
-//     //   showButton: true
-//     // } ,
-//     edges: {
-//       length: 400, // Longer edges between nodes.
-//       width: 0.5,
-//       color: '#ecba55',
-//       // smooth: {
-//       //   //type: "cubicBezier"
-//       //   //enabled: true,
-//       //   //type: "dynamic"
-//       // }
-//     },
-
-//     nodes: {
-//       shape: 'dot',
-//       size: 12,
-//       font: {
-//         size: 16,
-//         color: '#ffffff',
-//         face: 'NerdFonts'
-//       },
-//       borderWidth: 1,
-//       color: {
-//         background: '#3a3f44',
-//         //border: '#6d8e98',
-//         border: '#ecba55',
-//         highlight: {
-//           border: '#ffffff',
-//           background: '#3a3f44',
-//         },
-//         hover: {
-//           border: '#ecba55',
-//           background: '#ecba55',
-//         },
-//       },
-//     }
-//   };
-
-//   var network;
-
-//   // show the hole graph
-//   if (modal) {
+  // cancel graph display if no node was found
+  if (currId == -1) {
+    return;
+  }
 
 
-//     var container_modal = document.getElementById('mynetwork_modal');
+  //container = document.getElementById('mdContent');
 
-//     var nodes = new vis.DataSet(jsonNodes);
-//     var edges = new vis.DataSet(jsonEdges);
+  var options = {
+    interaction: {
+      hover: true,
+    },
+    // configure: {
+    //   enabled: true,
+    //   filter: 'nodes,edges',
+    //   container: container,
+    //   showButton: true
+    // } ,
+    edges: {
+      length: 400, // Longer edges between nodes.
+      width: 0.5,
+      color: '#ecba55',
+      // smooth: {
+      //   //type: "cubicBezier"
+      //   //enabled: true,
+      //   //type: "dynamic"
+      // }
+    },
 
-//     edgeView = edges;
-//     nodeView = nodes;
+    nodes: {
+      shape: 'dot',
+      size: 12,
+      font: {
+        size: 16,
+        color: '#ffffff',
+        face: 'NerdFonts'
+      },
+      borderWidth: 1,
+      color: {
+        background: '#3a3f44',
+        //border: '#6d8e98',
+        border: '#ecba55',
+        highlight: {
+          border: '#ffffff',
+          background: '#3a3f44',
+        },
+        hover: {
+          border: '#ecba55',
+          background: '#ecba55',
+        },
+      },
+    }
+  };
 
-//     if (filter_emptyNodes) {
-//       nodeView = new vis.DataView(nodes, {
-//         filter: function (node) {
-//           connEdges = edgeView.get({
-//             filter: function (edge) {
-//               if (node.id == currId) {
-//                 return true;
-//               };
-//               return (
-//                 (edge.to == node.id) || (edge.from == node.id));
-//             }
-//           });
-//           return connEdges.length > 0;
-//         }
-//       });
+  var network;
 
-//     }
+  // show the hole graph
+  if (modal) {
 
-//     // provide the data in the vis format
-//     var data = {
-//       nodes: nodeView,
-//       edges: edgeView
-//     };
 
-//     network = new vis.Network(container_modal, data, options);
-//     //network.selectNodes([currId]);
-//     var node = network.body.nodes[currId];
-//     node.setOptions({
-//       font: {
-//         size: 20
-//       },
-//       color: {
-//         background: '#ffbf00',
-//       },
-//     });
+    var container_modal = document.getElementById('mynetwork_modal');
+
+    var nodes = new vis.DataSet(jsonNodes);
+    var edges = new vis.DataSet(jsonEdges);
+
+    edgeView = edges;
+    nodeView = nodes;
+
+    if (filter_emptyNodes) {
+      nodeView = new vis.DataView(nodes, {
+        filter: function (node) {
+          connEdges = edgeView.get({
+            filter: function (edge) {
+              if (node.id == currId) {
+                return true;
+              };
+              return (
+                (edge.to == node.id) || (edge.from == node.id));
+            }
+          });
+          return connEdges.length > 0;
+        }
+      });
+
+    }
+
+    // provide the data in the vis format
+    var data = {
+      nodes: nodeView,
+      edges: edgeView
+    };
+
+    network = new vis.Network(container_modal, data, options);
+    //network.selectNodes([currId]);
+    var node = network.body.nodes[currId];
+    node.setOptions({
+      font: {
+        size: 20
+      },
+      color: {
+        background: '#ffbf00',
+      },
+    });
 
 
 
-//     // filter the graph to the desired nodes and edges
-//   } else {
+    // filter the graph to the desired nodes and edges
+  } else {
 
 
-//     var myNodes = [];
-//     var myEdges = [];
+    var myNodes = [];
+    var myEdges = [];
 
 
-//     // add current node
-//     for (const x in jsonNodes) {
-//       if (path == ('/' + jsonNodes[x]['title'])) {
-//         myNodes.push(jsonNodes[x])
-//         curNode = myNodes[0]
-//         curNode.size = '20';
-//         curNode.color = {
-//           background: '#ffbf00',
-//         };
+    // add current node
+    for (const x in jsonNodes) {
+      if (path == ('/' + jsonNodes[x]['title'])) {
+        myNodes.push(jsonNodes[x])
+        curNode = myNodes[0]
+        curNode.size = '20';
+        curNode.color = {
+          background: '#ffbf00',
+        };
 
-//         break;
-//       }
-//     }
-
-
-//     function idExists(id) {
-//       return myNodes.some(function (el) {
-//         return el.id === id;
-//       });
-//     }
+        break;
+      }
+    }
 
 
-//     // search linked nodes
-//     for (const y in jsonEdges) {
-//       if (currId == jsonEdges[y]['from']) {
-
-//         // add "To" node to the nodes
-//         for (const x in jsonNodes) {
-//           if (jsonEdges[y]['to'] == jsonNodes[x]['id']) {
-//             if (!idExists(jsonNodes[x]['id'])) {
-//               myNodes.push(jsonNodes[x])
-//             }
-//             break;
-//           }
-//         }
-
-//         // add the link
-//         myEdges.push(jsonEdges[y]);
-
-//         // search the backlinks
-//       } else if (currId == jsonEdges[y]['to']) {
-
-//         // add "From" node to the nodes
-//         for (const x in jsonNodes) {
-//           if (jsonEdges[y]['from'] == jsonNodes[x]['id']) {
-//             if (!idExists(jsonNodes[x]['id'])) {
-//               myNodes.push(jsonNodes[x])
-//             }
-//             break;
-//           }
-//         }
-
-//         // add the backlink
-//         myEdges.push(jsonEdges[y]);
-//       }
-
-//     }
-
-//     // build network structure
-
-//     var nodes = new vis.DataSet(myNodes);
-//     var edges = new vis.DataSet(myEdges);
+    function idExists(id) {
+      return myNodes.some(function (el) {
+        return el.id === id;
+      });
+    }
 
 
-//     var data = {
-//       nodes: nodes,
-//       edges: edges
-//     };
+    // search linked nodes
+    for (const y in jsonEdges) {
+      if (currId == jsonEdges[y]['from']) {
+
+        // add "To" node to the nodes
+        for (const x in jsonNodes) {
+          if (jsonEdges[y]['to'] == jsonNodes[x]['id']) {
+            if (!idExists(jsonNodes[x]['id'])) {
+              myNodes.push(jsonNodes[x])
+            }
+            break;
+          }
+        }
+
+        // add the link
+        myEdges.push(jsonEdges[y]);
+
+        // search the backlinks
+      } else if (currId == jsonEdges[y]['to']) {
+
+        // add "From" node to the nodes
+        for (const x in jsonNodes) {
+          if (jsonEdges[y]['from'] == jsonNodes[x]['id']) {
+            if (!idExists(jsonNodes[x]['id'])) {
+              myNodes.push(jsonNodes[x])
+            }
+            break;
+          }
+        }
+
+        // add the backlink
+        myEdges.push(jsonEdges[y]);
+      }
+
+    }
+
+    // build network structure
+
+    var nodes = new vis.DataSet(myNodes);
+    var edges = new vis.DataSet(myEdges);
 
 
-//     var container = document.getElementById('mynetwork');
-//     network = new vis.Network(container, data, options);
+    var data = {
+      nodes: nodes,
+      edges: edges
+    };
 
 
-//   }
+    var container = document.getElementById('mynetwork');
+    network = new vis.Network(container, data, options);
 
-//   // jump to file function
-//   if (network) {
 
-//     network.on("doubleClick", function (properties) {
+  }
 
-//       if (!properties.nodes.length) return;
-//       var node = nodes.get(properties.nodes[0]);
-//       var glink = '?link=' + encodeURIComponent('/' + node.title);
-//       window.open(glink, "_self");
-//     });
-//   }
+  // jump to file function
+  if (network) {
 
-// }
+    network.on("doubleClick", function (properties) {
+
+      if (!properties.nodes.length) return;
+      var node = nodes.get(properties.nodes[0]);
+      var glink = '?link=' + encodeURIComponent('/' + node.title);
+      window.open(glink, "_self");
+    });
+  }
+
+}
 
 
 
@@ -456,6 +432,10 @@ $(document).ready(function () {
     }
   });
 
+  // check for graph and hide open grap link if none exists
+  if (!document.getElementById("allGraphNodes") || document.getElementById("allGraphNodes").innerHTML == '[]') {
+    document.getElementById('expandGraph').classList.add('hide');
+  }
 
 
   // direct links
@@ -513,6 +493,12 @@ $(document).ready(function () {
     return false;
   };
 
+
+  // show graph modal
+  document.getElementById("expandGraph").onclick = function () {
+    $("#graphModal").modal("show");
+  };
+
   // render graph and check current file to highlight node
   $('#graphModal').on('shown.bs.modal', function () {
 
@@ -540,7 +526,7 @@ $(document).ready(function () {
       url: "content.php?about", success: function (result) {
         $("div.aboutModalBody").html(result);
         var title = $("div.searchTitle").first().html();
-        $("h5.aboutModalTitle").html("关于本网站");
+        $("h5.aboutModalTitle").html("Perlite");
         hljs.highlightAll();
         $("#aboutModal").modal("show");
       }
